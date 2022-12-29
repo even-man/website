@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<table class="center">
+    <h4>Class List</h4>
+    
+    {% if classList is not none %}
+        <tr>
+            <th>Course Name</th>
+            <th>Course Code</th>
+            <th>Credits</th>
+            <th>School</th>
+        </tr>
+        {% for class in classList %}
+        <tr>
+            <td>{{class.class_name}}</td>
+            <td>{{class.class_code}}</td>
+            <td>{{class.class_credits}}</td>
+            <td>{{class.class_school}}</td>
+            <td><a href="/delete/{{ class.class_code }}">delete</a></td>
+            <td><a href="/update/{{ class.class_code }}">update</a></td>
+        </tr>
+        {% endfor %}
+
+    {% else %}
+        <h4>Add classes now</h4>
+    {% endif %}
+
+
+</table>
+
+<div>
+<form action="{{ url_for('data')}}" method="post">
+    <label for="courseName">Course Name</label>
+    <input type="text" name="className" id="courseName"><br>
+    <label for="courseCode">Course Code</label> 
+    <input type="text" name="classCode" id="courseCode"><br>
+    <label for="credits">Credits</label>    
+    <input type="text" name="classCredits" id="credits"><br>
+    <label for="school"> School </label>    
+    <input type="text"name = "classSchool" id="school"><br>
+    <input type="submit" value="Submit">
+</form>
+</div>
+{% endblock %}

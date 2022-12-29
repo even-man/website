@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+    <title>FLASK!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <div class="topnav">
+        <a class="active" href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('data') }}">Data</a>
+      </div> 
+
+    {% block body %}{% endblock %}
+</body>
+</html>

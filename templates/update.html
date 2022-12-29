@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <h1>Update</h1>
+
+    <div>
+        <form action="/update/{{item.class_code}}" method="post">
+            <label for="courseName">Course Name</label>
+            <input type="text" name="className" id="courseName" value="{{item.class_name}}"><br>
+            <label for="courseCode">Course Code</label> 
+            <input type="text" name="classCode" id="courseCode" value="{{item.class_code}}""><br>
+            <label for="credits">Credits</label>    
+            <input type="text" name="classCredits" id="credits" value="{{item.class_credits}}"><br>
+            <label for="school"> School </label>    
+            <input type="text"name = "classSchool" id="school" value="{{item.class_school}}"><br>
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+
+{% endblock %}
