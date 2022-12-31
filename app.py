@@ -82,7 +82,6 @@ def update(code):
 def contact():
     return render_template('contact.html')
 
-#test test test test test test
 
 if __name__ == "__main__":
     app.run(debug=True)
