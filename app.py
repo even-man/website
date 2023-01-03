@@ -1,8 +1,11 @@
 from flask import Flask, render_template, url_for, request, redirect
-from flask_restful import Resource, Api, reqparse
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+
+import requests
+import json
+from key import api_key
 
 app = Flask(__name__)
 
@@ -82,6 +85,33 @@ def update(code):
 def contact():
     return render_template('contact.html')
 
+@app.route('/maps', methods = ['GET', 'POST'])
+def maps():
+    if request.method == 'POST':
+        KEY = api_key()
+        lat = request.form.get('lat')
+        long = request.form.get('long')
+        distance = request.form.get('range')
+        entityType = request.form.get('services') 
+        entityID = {'banks':'6000', 'schools':'8211', 'restaurants':'5800', 'airports':'4581'}
+        base_url = 'http://spatial.virtualearth.net/REST/v1/data/Microsoft/PointsOfInterest'
+        query = f"?spatialFilter=nearby({lat},{long},{distance})&$filter=EntityTypeID%20eq%20'{entityID[entityType]}'&$format=json&$select=DisplayName,Latitude,Longitude,AddressLine&key={KEY}"
+        
+        r = requests.get(base_url + query)
+        data = r.json()
+
+        itemData = list()
+
+        for point in data['d']['results']:
+            item = list()
+            item.append(point['DisplayName'])
+            item.append(point['AddressLine'])
+            itemData.append(item)
+        
+        return render_template('maps.html', itemData=itemData)
+
+    if request.method == 'GET':
+        return render_template('maps.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

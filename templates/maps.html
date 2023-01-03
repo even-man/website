@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <div style="text-align: left;">
+    <h1>Service Query</h1>
+    </div>
+
+    <form action="{{ url_for('maps') }}" method="post">
+        <label for="lat">Latitude:</label>
+        <input type="text" name="lat" id="lat">
+        <label for="long">Longitude:</label>
+        <input type="text" name="long" id="long">
+        <label for="range">Range:</label>
+        <input type="text" name="range" id="range">
+        <label for="services">Choose a Service:</label>
+        <select name="services" id="services">
+            <option value="banks">Banks</option>
+            <option value="schools">Schools</option>
+            <option value="airports">Airport</option>
+            <option value="restaurants">Restaurant</option>
+        </select> <br> <br>
+        <input style="text-align: center;" type="submit" value="Submit">
+    </form>
+
+<table class="center">
+    <tr>
+        <th>Location</th>
+        <th>Address</th>
+    </tr>
+
+    {% for item in itemData %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
